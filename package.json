@@ -2,9 +2,16 @@
   "name": "@rgsoft/turtle",
   "version": "1.0.0",
   "description": "Turtle graphics and L-Systems library",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build": "tsup"
   },
   "repository": {
     "type": "git",
@@ -20,5 +27,12 @@
   "bugs": {
     "url": "https://github.com/rgmiranda/turtle/issues"
   },
-  "homepage": "https://github.com/rgmiranda/turtle#readme"
+  "homepage": "https://github.com/rgmiranda/turtle#readme",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^2.0.3",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.3",
+    "vitest": "^2.0.3"
+  }
 }
