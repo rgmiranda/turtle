@@ -1,0 +1,24 @@
+{
+  "name": "@rgsoft/turtle",
+  "version": "1.0.0",
+  "description": "Turtle graphics and L-Systems library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgmiranda/turtle.git"
+  },
+  "keywords": [
+    "turtle",
+    "l-systems",
+    "graphics"
+  ],
+  "author": "Ricardo Miranda <rgmiranda@live.com.ar>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rgmiranda/turtle/issues"
+  },
+  "homepage": "https://github.com/rgmiranda/turtle#readme"
+}
