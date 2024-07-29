@@ -1,0 +1,1 @@
+export type AlphabetSymbol = 'F' | 'G' | 'L' | 'M' | 'D' | 'U' | '+' | '-' | '[' | ']';
