@@ -27,6 +27,8 @@ describe(Rule.name, () => {
 
     const invalidRules = [
         ['FF=>FG+', 'Unrecognized rule pattern'],
+        ['F=>', 'Unrecognized rule pattern'],
+        ['=>FG', 'Unrecognized rule pattern'],
         ['Y=>FG+', "Symbol 'Y' not recognized in condition"],
         ['F=>FGY+', "Symbol 'Y' not recognized in predicate"],
     ];

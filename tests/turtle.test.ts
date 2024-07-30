@@ -5,7 +5,8 @@ import { setupJestCanvasMock } from 'jest-canvas-mock'
 describe(Turtle.name, () => {
 
     let canvas: HTMLCanvasElement;
-    let ctx: CanvasRenderingContext2D;
+    let context: CanvasRenderingContext2D;
+    let turtle: Turtle;
 
     beforeEach(() => {
         vi.resetAllMocks();
@@ -14,68 +15,71 @@ describe(Turtle.name, () => {
         canvas = document.createElement('canvas');
         canvas.width = 100;
         canvas.height = 100;
-        ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+        context = canvas.getContext('2d') as CanvasRenderingContext2D;
+        turtle = new Turtle({
+            angle: Math.PI * 0.5,
+            context,
+            strokeSize: 20,
+            strokeWeight: 2,
+            scale: {
+                ratio: 1,
+                scaleStrokeSize: true,
+                scaleStrokeWeight: true,
+            }
+        });
     });
     
     it('creates instance', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         expect(turtle).toBeInstanceOf(Turtle);
     });
 
     it('inits graphics', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.init(50, 50, 0);
-        expect(ctx.resetTransform).toHaveBeenCalledOnce();
-        expect(ctx.translate).toHaveBeenCalledWith(50, 50);
-        expect(ctx.rotate).toHaveBeenCalledWith(0);
+        expect(context.resetTransform).toHaveBeenCalledOnce();
+        expect(context.translate).toHaveBeenCalledWith(50, 50);
+        expect(context.rotate).toHaveBeenCalledWith(0);
     });
 
     it('draws straight line with F', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('F');
-        expect(ctx.beginPath).toHaveBeenCalledOnce();
-        expect(ctx.moveTo).toHaveBeenCalledWith(0, 0);
-        expect(ctx.lineCap).toBe('round');
-        expect(ctx.lineWidth).toBe(2);
-        expect(ctx.lineTo).toHaveBeenCalledWith(20, 0);
-        expect(ctx.stroke).toHaveBeenCalledOnce();
-        expect(ctx.translate).toHaveBeenCalledWith(20, 0);
+        expect(context.beginPath).toHaveBeenCalledOnce();
+        expect(context.moveTo).toHaveBeenCalledWith(0, 0);
+        expect(context.lineCap).toBe('round');
+        expect(context.lineWidth).toBe(2);
+        expect(context.lineTo).toHaveBeenCalledWith(20, 0);
+        expect(context.stroke).toHaveBeenCalledOnce();
+        expect(context.translate).toHaveBeenCalledWith(20, 0);
     });
 
     it('draws straight line with G', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('G');
-        expect(ctx.beginPath).toHaveBeenCalledOnce();
-        expect(ctx.moveTo).toHaveBeenCalledWith(0, 0);
-        expect(ctx.lineCap).toBe('round');
-        expect(ctx.lineWidth).toBe(2);
-        expect(ctx.lineTo).toHaveBeenCalledWith(20, 0);
-        expect(ctx.stroke).toHaveBeenCalledOnce();
-        expect(ctx.translate).toHaveBeenCalledWith(20, 0);
+        expect(context.beginPath).toHaveBeenCalledOnce();
+        expect(context.moveTo).toHaveBeenCalledWith(0, 0);
+        expect(context.lineCap).toBe('round');
+        expect(context.lineWidth).toBe(2);
+        expect(context.lineTo).toHaveBeenCalledWith(20, 0);
+        expect(context.stroke).toHaveBeenCalledOnce();
+        expect(context.translate).toHaveBeenCalledWith(20, 0);
     });
 
     it('moves the pencil', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('M');
-        expect(ctx.translate).toHaveBeenCalledWith(20, 0);
+        expect(context.translate).toHaveBeenCalledWith(20, 0);
     });
 
     it('rotates right', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('+');
-        expect(ctx.rotate).toHaveBeenCalledWith(Math.PI * 0.5);
+        expect(context.rotate).toHaveBeenCalledWith(Math.PI * 0.5);
     });
 
     it('rotates left', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('-');
-        expect(ctx.rotate).toHaveBeenCalledWith(-Math.PI * 0.5);
+        expect(context.rotate).toHaveBeenCalledWith(-Math.PI * 0.5);
     });
 
     it('saves and restores context', () => {
-        const turtle = new Turtle(ctx, 20, 2, Math.PI * 0.5, 1);
         turtle.render('[]');
-        expect(ctx.save).toHaveBeenCalledOnce();
-        expect(ctx.restore).toHaveBeenCalledOnce();
+        expect(context.save).toHaveBeenCalledOnce();
+        expect(context.restore).toHaveBeenCalledOnce();
     });
 });

@@ -1,5 +1,19 @@
 import { AlphabetSymbol } from "./types";
 
+export interface ScaleOptions {
+    ratio: number,
+    scaleStrokeSize?: boolean,
+    scaleStrokeWeight?: boolean,
+};
+
+export interface TurtleConfig {
+    context: CanvasRenderingContext2D,
+    strokeSize: number,
+    strokeWeight: number,
+    angle: number,
+    scale: ScaleOptions,
+};
+
 export class Turtle {
 
     /**
@@ -9,55 +23,55 @@ export class Turtle {
 
     private readonly alphabetMap: Record<AlphabetSymbol, () => void> = {
         F: () => {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, 0);
-            this.ctx.lineCap = 'round';
-            this.ctx.lineWidth = this.strokeWeight * this.currentScale;
-            this.ctx.lineTo(this.strokeSize * this.currentScale, 0);
-            this.ctx.stroke();
-            this.ctx.translate(this.strokeSize * this.currentScale, 0);
+            const ctx = this.config.context;
+            const lineWith = this.config.scale.scaleStrokeWeight ? this.config.strokeWeight * this.currentScale : this.config.strokeWeight;
+            const lineSize = this.config.scale.scaleStrokeSize ? this.config.strokeSize * this.currentScale : this.config.strokeSize;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineCap = 'round';
+            ctx.lineWidth = lineWith;
+            ctx.lineTo(lineSize, 0);
+            ctx.stroke();
+            ctx.translate(lineSize, 0);
         },
         G: () => {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, 0);
-            this.ctx.lineCap = 'round';
-            this.ctx.lineWidth = this.strokeWeight * this.currentScale;
-            this.ctx.lineTo(this.strokeSize * this.currentScale, 0);
-            this.ctx.stroke();
-            this.ctx.translate(this.strokeSize * this.currentScale, 0);
+            const ctx = this.config.context;
+            const lineWith = this.config.scale.scaleStrokeWeight ? this.config.strokeWeight * this.currentScale : this.config.strokeWeight;
+            const lineSize = this.config.scale.scaleStrokeSize ? this.config.strokeSize * this.currentScale : this.config.strokeSize;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineCap = 'round';
+            ctx.lineWidth = lineWith;
+            ctx.lineTo(lineSize, 0);
+            ctx.stroke();
+            ctx.translate(lineSize, 0);
         },
         L: () => {
-            this.ctx.beginPath();
-            this.ctx.moveTo(0, 0);
-            this.ctx.lineCap = 'round';
-            this.ctx.lineWidth = this.strokeWeight * this.currentScale;
-            this.ctx.arc(this.strokeSize * this.currentScale * 0.5, this.strokeSize * this.currentScale * 0.5, this.strokeSize * this.currentScale * Math.SQRT1_2, Math.PI * 1.25, Math.PI * 1.75);
-            this.ctx.arc(this.strokeSize * this.currentScale * 0.5, -this.strokeSize * this.currentScale * 0.5, this.strokeSize * this.currentScale * Math.SQRT1_2, Math.PI * 0.25, Math.PI * 0.75);
-            this.ctx.stroke();
+            const ctx = this.config.context;
+            const lineWith = this.config.scale.scaleStrokeWeight ? this.config.strokeWeight * this.currentScale : this.config.strokeWeight;
+            const lineSize = this.config.scale.scaleStrokeSize ? this.config.strokeSize * this.currentScale : this.config.strokeSize;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineCap = 'round';
+            ctx.lineWidth = lineWith;
+            ctx.arc(lineSize * 0.5, lineSize * 0.5, lineSize * Math.SQRT1_2, Math.PI * 1.25, Math.PI * 1.75);
+            ctx.arc(lineSize * 0.5, -lineSize * 0.5, lineSize * Math.SQRT1_2, Math.PI * 0.25, Math.PI * 0.75);
+            ctx.stroke();
         },
-        M: () => this.ctx.translate(this.strokeSize * this.currentScale, 0),
-        D: () => this.currentScale *= this.scale,
-        U: () => this.currentScale /= this.scale,
-        "+": () => this.ctx.rotate(this.angle),
-        "-": () => this.ctx.rotate(-this.angle),
-        "[": () => this.ctx.save(),
-        "]": () => this.ctx.restore()
+        M: () => {
+            const lineSize = this.config.scale.scaleStrokeSize ? this.config.strokeSize * this.currentScale : this.config.strokeSize;
+            this.config.context.translate(lineSize, 0);
+        },
+        D: () => this.currentScale *= this.config.scale.ratio,
+        U: () => this.currentScale /= this.config.scale.ratio,
+        "+": () => this.config.context.rotate(this.config.angle),
+        "-": () => this.config.context.rotate(-this.config.angle),
+        "[": () => this.config.context.save(),
+        "]": () => this.config.context.restore()
     };
 
-    /**
-     * 
-     * @param { CanvasRenderingContext2D } ctx 
-     * @param { number } strokeSize 
-     * @param { number } strokeWeight 
-     * @param { number } angle
-     * @param { number } scale
-     */
-    constructor(
-        public ctx: CanvasRenderingContext2D,
-        public strokeSize: number,
-        public strokeWeight: number,
-        public angle: number,
-        public scale: number) {
+    
+    constructor(public config: TurtleConfig) {
     }
 
     /**
@@ -81,9 +95,9 @@ export class Turtle {
      * @param { number } angle 
      */
     init(x: number, y: number, angle: number) {
-        this.ctx.resetTransform();
-        this.ctx.translate(x, y);
-        this.ctx.rotate(angle);
+        this.config.context.resetTransform();
+        this.config.context.translate(x, y);
+        this.config.context.rotate(angle);
         this.currentScale = 1;
     }
 }
