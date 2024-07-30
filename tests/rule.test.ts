@@ -9,20 +9,21 @@ describe(Rule.name, () => {
     });
    
     const rulePartsData = [
-        ['F=>FG+', 'F', 'FG+'],
-        ['+=>LFG[]', '+', 'LFG[]'],
-        ['+   =>LFG[]', '+', 'LFG[]'],
-        ['+   =>LFG[]', '+', 'LFG[]'],
-        ['+=>   LFG[]', '+', 'LFG[]'],
-        ['+   =>   LFG[]', '+', 'LFG[]'],
-        ['   + => LFG[ ]   ', '+', 'LFG[]'],
+        ['F=>FG+', 'F', 'FG+', 'F => FG+'],
+        ['+=>LFG[]', '+', 'LFG[]', '+ => LFG[]'],
+        ['+   =>LFG[]', '+', 'LFG[]', '+ => LFG[]'],
+        ['+   =>LFG[]', '+', 'LFG[]', '+ => LFG[]'],
+        ['+=>   LFG[]', '+', 'LFG[]', '+ => LFG[]'],
+        ['+   =>   LFG[]', '+', 'LFG[]', '+ => LFG[]'],
+        ['   + => LFG[ ]   ', '+', 'LFG[]', '+ => LFG[]'],
     ];
 
-    it.each(rulePartsData)('detects rule parts', (s, c, p) => {
+    it.each(rulePartsData)('detects rule parts', (s, c, p, str) => {
         const r = new Rule(s);
         expect(r).toBeInstanceOf(Rule);
         expect(r.base).toBe(c);
         expect(r.nextString).toBe(p);
+        expect(`${r}`).toBe(str);
     });
 
     const invalidRules = [

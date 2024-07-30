@@ -1,3 +1,4 @@
 export { AlphabetSymbol } from './types';
-export { Turtle } from './turtle';
+export { LSystem } from './lsystem';
 export { Rule } from './rule';
+export { Turtle } from './turtle';
