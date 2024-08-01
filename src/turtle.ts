@@ -4,6 +4,7 @@ export interface ScaleOptions {
     ratio: number,
     scaleStrokeSize?: boolean,
     scaleStrokeWeight?: boolean,
+    scaleAngle?: boolean,
 };
 
 export interface TurtleConfig {
@@ -64,8 +65,14 @@ export class Turtle {
         },
         D: () => this.currentScale *= this.config.scale.ratio,
         U: () => this.currentScale /= this.config.scale.ratio,
-        "+": () => this.config.context.rotate(this.config.angle),
-        "-": () => this.config.context.rotate(-this.config.angle),
+        "+": () => {
+            const angle = this.config.scale.scaleAngle ? this.config.angle * this.currentScale : this.config.angle;
+            this.config.context.rotate(angle);
+        },
+        "-": () => {
+            const angle = this.config.scale.scaleAngle ? this.config.angle * this.currentScale : this.config.angle;
+            this.config.context.rotate(-angle);
+        },
         "[": () => this.config.context.save(),
         "]": () => this.config.context.restore()
     };

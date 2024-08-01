@@ -22,9 +22,10 @@ describe(Turtle.name, () => {
             strokeSize: 20,
             strokeWeight: 2,
             scale: {
-                ratio: 1,
+                ratio: 0.5,
                 scaleStrokeSize: true,
                 scaleStrokeWeight: true,
+                scaleAngle: true,
             }
         });
     });
@@ -81,5 +82,29 @@ describe(Turtle.name, () => {
         turtle.render('[]');
         expect(context.save).toHaveBeenCalledOnce();
         expect(context.restore).toHaveBeenCalledOnce();
+    });
+
+    it('upscales drawing', () => {
+        turtle.render('U+F');
+        expect(context.rotate).toHaveBeenCalledWith(Math.PI);
+        expect(context.beginPath).toHaveBeenCalledOnce();
+        expect(context.moveTo).toHaveBeenCalledWith(0, 0);
+        expect(context.lineCap).toBe('round');
+        expect(context.lineWidth).toBe(4);
+        expect(context.lineTo).toHaveBeenCalledWith(40, 0);
+        expect(context.stroke).toHaveBeenCalledOnce();
+        expect(context.translate).toHaveBeenCalledWith(40, 0);
+    });
+
+    it('downscales drawing', () => {
+        turtle.render('D+F');
+        expect(context.rotate).toHaveBeenCalledWith(Math.PI * 0.25);
+        expect(context.beginPath).toHaveBeenCalledOnce();
+        expect(context.moveTo).toHaveBeenCalledWith(0, 0);
+        expect(context.lineCap).toBe('round');
+        expect(context.lineWidth).toBe(1);
+        expect(context.lineTo).toHaveBeenCalledWith(10, 0);
+        expect(context.stroke).toHaveBeenCalledOnce();
+        expect(context.translate).toHaveBeenCalledWith(10, 0);
     });
 });

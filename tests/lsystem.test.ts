@@ -39,4 +39,14 @@ describe(LSystem.name, () => {
         lsystem.generate();
         expect(lsystem.sentence).toBe('G');
     });
+    
+    it('generates multiple generation sentences', () => {
+        let lsystem = new LSystem('F', [
+            'F=>FG'
+        ]);
+        expect(lsystem).toBeInstanceOf(LSystem);
+        expect(lsystem.sentence).toBe('F');
+        lsystem.generate(4);
+        expect(lsystem.sentence).toBe('FGGGG');
+    });
 });
