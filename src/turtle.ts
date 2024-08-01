@@ -1,6 +1,6 @@
 import { AlphabetSymbol } from "./types";
 
-export interface ScaleOptions {
+export interface ScaleConfig {
     ratio: number,
     scaleStrokeSize?: boolean,
     scaleStrokeWeight?: boolean,
@@ -12,7 +12,7 @@ export interface TurtleConfig {
     strokeSize: number,
     strokeWeight: number,
     angle: number,
-    scale: ScaleOptions,
+    scale: ScaleConfig,
 };
 
 export class Turtle {

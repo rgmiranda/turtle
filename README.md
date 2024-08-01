@@ -103,7 +103,7 @@ context      | `CanvasRenderingContext2D` | Canvas rendering context used for dr
 strokeSize   | `number`                   | Lenght of each step used stroke or move (may be affected by scaling)
 strokeWeight | `number`                   | Width of the stroke (may be affected by scaling)
 angle        | `number`                   | Angle used for each turn (`+` and `-`)
-scale        | `ScaleOptions`             | Scale config
+scale        | `ScaleConfig`              | Scale config
 
 The `ScaleConfig` has this properties:
 
