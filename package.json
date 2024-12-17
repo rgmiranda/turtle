@@ -1,6 +1,6 @@
 {
   "name": "@rgsoft/turtle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Turtle graphics and L-Systems library",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

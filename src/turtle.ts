@@ -47,6 +47,18 @@ export class Turtle {
             ctx.stroke();
             ctx.translate(lineSize, 0);
         },
+        H: () => {
+            const ctx = this.config.context;
+            const lineWith = this.config.scale.scaleStrokeWeight ? this.config.strokeWeight * this.currentScale : this.config.strokeWeight;
+            const lineSize = this.config.scale.scaleStrokeSize ? this.config.strokeSize * this.currentScale : this.config.strokeSize;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineCap = 'round';
+            ctx.lineWidth = lineWith;
+            ctx.lineTo(lineSize, 0);
+            ctx.stroke();
+            ctx.translate(lineSize, 0);
+        },
         L: () => {
             const ctx = this.config.context;
             const lineWith = this.config.scale.scaleStrokeWeight ? this.config.strokeWeight * this.currentScale : this.config.strokeWeight;

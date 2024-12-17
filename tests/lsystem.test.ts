@@ -29,6 +29,7 @@ describe(LSystem.name, () => {
         let lsystem = new LSystem('F', [
             'F=>F[+F][-F]',
             new Rule('G=>G'),
+            new Rule('H=>G'),
         ]);
         expect(lsystem).toBeInstanceOf(LSystem);
         expect(lsystem.sentence).toBe('F');
@@ -36,6 +37,10 @@ describe(LSystem.name, () => {
         expect(lsystem.sentence).toBe('F[+F][-F]');
         
         lsystem.axiom = 'G';
+        lsystem.generate();
+        expect(lsystem.sentence).toBe('G');
+        
+        lsystem.axiom = 'H';
         lsystem.generate();
         expect(lsystem.sentence).toBe('G');
     });

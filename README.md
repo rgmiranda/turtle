@@ -16,7 +16,7 @@ The `axiom` is the base sentence from which future sentences will be generated
 or inferred, and must be composed only by symbols of a defined alphabet. This
 alphabet is based on the Turtle Graphics movements.
 
-`F, G, L, M, D, U, +, -, [, ]`
+`F, G, H, L, M, D, U, +, -, [, ]`
 
 The `rules` is an array of strings or instances of the `Rule` class, where each
 one of them defines a **production rule** for spawning the next generation
@@ -73,17 +73,17 @@ based on the [turtle graphics](https://en.wikipedia.org/wiki/Turtle_graphics).
 The sentences use the same symbols in the `LSystem` and `Rule` alphabet, with
 each symbol having a specific usage.
 
-Symbol  | Action
---------| ------
-`F`, `G`| Advances forward a certain amount of steps drawing a line
-`M`     | Advances forward a certain amount of steps without drawing a line
-`L`     | Draws a tree leaf
-`U`     | Upscale drawing (divides current scale by scale ratio, with initial scale is `1`)
-`D`     | Downscale drawing (multiplies current scale by scale ratio, with initial scale is `1`)
-`+`     | Turn right a certain angle
-`-`     | Turn left a certain angle
-`[`     | Saves current context
-`]`     | Restores current context
+Symbol       | Action
+-------------| ------
+`F`, `G`, `H`| Advances forward a certain amount of steps drawing a line
+`M`          | Advances forward a certain amount of steps without drawing a line
+`L`          | Draws a tree leaf
+`U`          | Upscale drawing (divides current scale by scale ratio, with initial scale is `1`)
+`D`          | Downscale drawing (multiplies current scale by scale ratio, with initial scale is `1`)
+`+`          | Turn right a certain angle
+`-`          | Turn left a certain angle
+`[`          | Saves current context
+`]`          | Restores current context
 
 The `render` method reads each symbol in the string, and performs an action
 according to the previous table.
